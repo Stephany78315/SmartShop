@@ -4,19 +4,41 @@ node_modules/
 # Ignorar archivos de entorno (cambia '.env' por el nombre de tu archivo)
 .env
 
-# Ignorar carpetas de compilación
-build/
-dist/
-
-# Ignorar la carpeta de dependencias
-node_modules/
-
-# Ignorar archivos de entorno (cambia '.env' por el nombre de tu archivo)
-.env
-
 # Ignorar archivos de registro (cambia '*.log' por la extensión de tus archivos de registro)
 *.log
 
 # Ignorar carpetas de compilación o distribución
 dist/
 build/
+web-build/
+
+# Expo
+.expo/
+.web/
+.cache/
+
+# Native
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Metro
+.metro-health-check*
+
+# debug
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# macOS
+.DS_Store
+*.pem
+
+# local env files
+.env*.local
+
+# typescript
+*.tsbuildinfo
