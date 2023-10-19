@@ -4,30 +4,18 @@ node_modules/
 # Ignorar archivos de entorno (cambia '.env' por el nombre de tu archivo)
 .env
 
-# Ignorar carpetas de compilación
-build/
-dist/
-
-# Ignorar la carpeta de dependencias
-node_modules/
-
-# Ignorar archivos de entorno (cambia '.env' por el nombre de tu archivo)
-.env
-
 # Ignorar archivos de registro (cambia '*.log' por la extensión de tus archivos de registro)
 *.log
 
 # Ignorar carpetas de compilación o distribución
 dist/
 build/
-
-
-# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+web-build/
 
 # Expo
 .expo/
-dist/
-web-build/
+.web/
+.cache/
 
 # Native
 *.orig.*
