@@ -1,0 +1,106 @@
+'use strict';
+
+const Store = require('../models/store_list');
+
+const controller = {
+
+    createStoreList: (req, res) => {
+        const storeData = req.body;
+
+        if (!storeData.account_id || !storeData.products || storeData.products.length === 0) {
+            return res.status(400).json({
+                status: 'error',
+                message: 'Por favor, proporciona una cuenta válida y al menos un producto para crear una tienda.'
+            });
+        }
+
+        const newStore = new Store(storeData);
+
+        newStore.save((err, storeStored) => {
+            if (err) {
+                return res.status(500).json({
+                    status: 'error',
+                    message: 'Error al crear una lista de productos almacenados'
+                });
+            }
+
+            return res.status(200).json({
+                status: 'success',
+                store: storeStored
+            });
+        });
+    },
+
+    getStoreLists: (req, res) => {
+        Store.find({}, (err, stores) => {
+            if (err) {
+                return res.status(500).json({
+                    status: 'error',
+                    message: 'Error al obtener las listas de productos almacenados'
+                });
+            }
+            if (!stores || stores.length === 0) {
+                return res.status(404).json({
+                    status: 'error',
+                    message: 'No hay listas de prouctos almacenados para mostrar'
+                });
+            }
+
+            return res.status(200).json({
+                status: 'success',
+                stores
+            });
+        });
+    },
+
+    updateStoreList: (req, res) => {
+        const storeId = req.params.id;
+        const newData = req.body;
+
+        Store.findByIdAndUpdate(storeId, newData, { new: true }, (err, updatedStore) => {
+            if (err) {
+                return res.status(500).json({
+                    status: 'error',
+                    message: 'Error al actualizar la lista de los proudctos almacenados'
+                });
+            }
+            if (!updatedStore) {
+                return res.status(404).json({
+                    status: 'error',
+                    message: 'No se encontró la lista de productos almacenados a actualizar'
+                });
+            }
+
+            return res.status(200).json({
+                status: 'success',
+                store: updatedStore
+            });
+        });
+    },
+
+    deleteStoreList: (req, res) => {
+        const storeId = req.params.id;
+
+        Store.findByIdAndRemove(storeId, (err, deletedStore) => {
+            if (err) {
+                return res.status(500).json({
+                    status: 'error',
+                    message: 'Error al eliminar la lista de productos almacenados'
+                });
+            }
+            if (!deletedStore) {
+                return res.status(404).json({
+                    status: 'error',
+                    message: 'No se encontró la lista de productos almacenados a eliminar'
+                });
+            }
+
+            return res.status(200).json({
+                status: 'success',
+                message: 'Lista de productos almacenados eliminada exitosamente'
+            });
+        });
+    }
+};
+
+module.exports = controller;

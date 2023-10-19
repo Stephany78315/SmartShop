@@ -8,7 +8,7 @@ const app = express();
 
 const port = 3900;
 
-var url = 'mongodb://127.0.0.1:27017/api_rest_reactnotas';
+var url = 'mongodb://127.0.0.1:27017/smartshop-db-2023';
 
 mongoose.Promise = global.Promise;
 

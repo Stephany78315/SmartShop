@@ -1,0 +1,106 @@
+'use strict';
+
+const ShoppingList = require('../models/shopping_list');
+
+const controller = {
+
+    createShoppingList: (req, res) => {
+        const shoppingListData = req.body;
+
+        if (!shoppingListData.account_id || !shoppingListData.products || shoppingListData.products.length === 0) {
+            return res.status(400).json({
+                status: 'error',
+                message: 'Por favor, proporciona una cuenta válida y al menos un producto para crear una lista de compras.'
+            });
+        }
+
+        const newShoppingList = new ShoppingList(shoppingListData);
+
+        newShoppingList.save((err, shoppingListStored) => {
+            if (err) {
+                return res.status(500).json({
+                    status: 'error',
+                    message: 'Error al crear la lista de compras'
+                });
+            }
+
+            return res.status(200).json({
+                status: 'success',
+                shoppingList: shoppingListStored
+            });
+        });
+    },
+
+    getShoppingLists: (req, res) => {
+        ShoppingList.find({}, (err, shoppingLists) => {
+            if (err) {
+                return res.status(500).json({
+                    status: 'error',
+                    message: 'Error al obtener las listas de compras'
+                });
+            }
+            if (!shoppingLists || shoppingLists.length === 0) {
+                return res.status(404).json({
+                    status: 'error',
+                    message: 'No hay listas de compras para mostrar'
+                });
+            }
+
+            return res.status(200).json({
+                status: 'success',
+                shoppingLists
+            });
+        });
+    },
+
+    updateShoppingList: (req, res) => {
+        const shoppingListId = req.params.id;
+        const newData = req.body;
+
+        ShoppingList.findByIdAndUpdate(shoppingListId, newData, { new: true }, (err, updatedShoppingList) => {
+            if (err) {
+                return res.status(500).json({
+                    status: 'error',
+                    message: 'Error al actualizar la lista de compras'
+                });
+            }
+            if (!updatedShoppingList) {
+                return res.status(404).json({
+                    status: 'error',
+                    message: 'No se encontró la lista de compras a actualizar'
+                });
+            }
+
+            return res.status(200).json({
+                status: 'success',
+                shoppingList: updatedShoppingList
+            });
+        });
+    },
+
+    deleteShoppingList: (req, res) => {
+        const shoppingListId = req.params.id;
+
+        ShoppingList.findByIdAndRemove(shoppingListId, (err, deletedShoppingList) => {
+            if (err) {
+                return res.status(500).json({
+                    status: 'error',
+                    message: 'Error al eliminar la lista de compras'
+                });
+            }
+            if (!deletedShoppingList) {
+                return res.status(404).json({
+                    status: 'error',
+                    message: 'No se encontró la lista de compras a eliminar'
+                });
+            }
+
+            return res.status(200).json({
+                status: 'success',
+                message: 'Lista de compras eliminada exitosamente'
+            });
+        });
+    }
+};
+
+module.exports = controller;

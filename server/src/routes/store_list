@@ -1,0 +1,20 @@
+'use strict'
+
+var express = require('express');
+var storeListController = require('../controllers/store_list');
+
+var router = express.Router();
+
+// Ruta para crear una nueva lista de productos almacenados.
+router.post('/createStoreList', storeListController.createStoreList);
+
+// Ruta para obtener todas las listas de productos almacenados.
+router.get('/getStoreLists', storeListController.getStoreLists);
+
+// Ruta para actualizar una lista de productos almacenados.
+router.put('/updateStoreList/:id', storeListController.updateStoreList);
+
+// Ruta para eliminar una lista de productos almacenados.
+router.delete('/deleteStoreList/:id', storeListController.deleteStoreList);
+
+module.exports = router;

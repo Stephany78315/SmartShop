@@ -1,0 +1,106 @@
+'use strict';
+
+const ForgottenList = require('../models/forgotten_list');
+
+const forgottenListController = {
+
+    createForgottenList: (req, res) => {
+        const forgottenItemData = req.body;
+
+        if (!forgottenItemData.product_id) {
+            return res.status(400).json({
+                status: 'error',
+                message: 'Por favor, proporciona un producto válido para agregar a la lista de olvidados.'
+            });
+        }
+
+        const newForgottenItem = new ForgottenList(forgottenItemData);
+
+        newForgottenItem.save((err, forgottenItemStored) => {
+            if (err) {
+                return res.status(500).json({
+                    status: 'error',
+                    message: 'Error al agregar el producto a la lista de olvidados'
+                });
+            }
+
+            return res.status(200).json({
+                status: 'success',
+                forgottenItem: forgottenItemStored
+            });
+        });
+    },
+
+    getForgottenLists: (req, res) => {
+        ForgottenList.find({}, (err, forgottenItems) => {
+            if (err) {
+                return res.status(500).json({
+                    status: 'error',
+                    message: 'Error al obtener la lista de productos olvidados'
+                });
+            }
+            if (!forgottenItems || forgottenItems.length === 0) {
+                return res.status(404).json({
+                    status: 'error',
+                    message: 'No hay productos en la lista de olvidados'
+                });
+            }
+
+            return res.status(200).json({
+                status: 'success',
+                forgottenItems
+            });
+        });
+    },
+
+    updateForgottenList: (req, res) => {
+        const forgottenItemId = req.params.id;
+        const newData = req.body;
+
+        ForgottenList.findByIdAndUpdate(forgottenItemId, newData, { new: true }, (err, updatedForgottenItem) => {
+            if (err) {
+                return res.status(500).json({
+                    status: 'error',
+                    message: 'Error al actualizar el producto en la lista de olvidados'
+                });
+            }
+            if (!updatedForgottenItem) {
+                return res.status(404).json({
+                    status: 'error',
+                    message: 'No se encontró el producto en la lista de olvidados a actualizar'
+                });
+            }
+
+            return res.status(200).json({
+                status: 'success',
+                forgottenItem: updatedForgottenItem
+            });
+        });
+    },
+
+    deleteForgottenList: (req, res) => {
+        const forgottenItemId = req.params.id;
+
+        ForgottenList.findByIdAndRemove(forgottenItemId, (err, deletedForgottenItem) => {
+            if (err) {
+                return res.status(500).json({
+                    status: 'error',
+                    message: 'Error al eliminar el producto de la lista de olvidados'
+                });
+            }
+            if (!deletedForgottenItem) {
+                return res.status(404).json({
+                    status: 'error',
+                    message: 'No se encontró el producto en la lista de olvidados a eliminar'
+                });
+            }
+
+            return res.status(200).json({
+                status: 'success',
+                message: 'Producto eliminado de la lista de olvidados exitosamente'
+            });
+        });
+    }
+};
+
+module.exports = forgottenListController;
