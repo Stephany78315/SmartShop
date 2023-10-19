@@ -1,0 +1,19 @@
+'use strict'
+
+const mongoose = require('mongoose');
+
+const Schema = mongoose.Schema;
+
+// Define el esquema del modelo
+const PaymentHistorySchema = new Schema({
+    payment_plan_id: String,
+    date: Date,
+    payment_name: String,
+    state: String, //Si esta activo o no,
+    qr_code: String
+});
+
+// Crea y exporta el modelo
+const PaymentHistory = mongoose.model('PaymentHistory', PaymentHistorySchema);
+
+module.exports = PaymentHistory;

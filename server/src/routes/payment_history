@@ -1,0 +1,20 @@
+'use strict'
+
+var express = require('express');
+var paymentHistoryController = require('../controllers/paymentHistory');
+
+var router = express.Router();
+
+// Ruta para crear un nuevo historial de pago
+router.post('/createPaymentHistory', paymentHistoryController.createPaymentHistory);
+
+// Ruta para obtener todos los historiales de pago
+router.get('/getPaymentHistories', paymentHistoryController.getPaymentHistories);
+
+// Ruta para actualizar un historial de pago
+router.put('/updatePaymentHistory/:id', paymentHistoryController.updatePaymentHistory);
+
+// Ruta para eliminar un historial de pago
+router.delete('/deletePaymentHistory/:id', paymentHistoryController.deletePaymentHistory);
+
+module.exports = router;

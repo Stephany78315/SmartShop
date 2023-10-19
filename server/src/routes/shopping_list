@@ -1,0 +1,20 @@
+'use strict'
+
+var express = require('express');
+var shoppingListController = require('../controllers/shopping_list');
+
+var router = express.Router();
+
+// Ruta para crear una nueva lista de compras
+router.post('/createShoppingList', shoppingListController.createShoppingList);
+
+// Ruta para obtener todas las listas de compras
+router.get('/getShoppingLists', shoppingListController.getShoppingLists);
+
+// Ruta para actualizar una lista de compras
+router.put('/updateShoppingList/:id', shoppingListController.updateShoppingList);
+
+// Ruta para eliminar una lista de compras
+router.delete('/deleteShoppingList/:id', shoppingListController.deleteShoppingList);
+
+module.exports = router;

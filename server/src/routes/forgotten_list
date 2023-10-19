@@ -1,0 +1,20 @@
+'use strict'
+
+var express = require('express');
+var forgottenListController = require('../controllers/forgottenList');
+
+var router = express.Router();
+
+// Ruta para agregar un producto olvidado a la lista
+router.post('/addForgottenList', forgottenListController.createForgottenList);
+
+// Ruta para obtener todos los productos olvidados
+router.get('/getForgottenLists', forgottenListController.getForgottenLists);
+
+// Ruta para actualizar un producto olvidado
+router.put('/updateForgottenList/:id', forgottenListController.updateForgottenList);
+
+// Ruta para eliminar un producto olvidado
+router.delete('/deleteForgottenList/:id', forgottenListController.deleteForgottenList);
+
+module.exports = router;
