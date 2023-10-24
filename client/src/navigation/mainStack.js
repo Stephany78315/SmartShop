@@ -6,8 +6,6 @@ import Login from '../views/login.jsx';
 
 const Stack = createNativeStackNavigator();
 
-
-
 const MainStack = () => {
     console.log('estas en MainStack');
     return (
@@ -15,7 +13,7 @@ const MainStack = () => {
             <Stack.Navigator screenOptions = {{
                     headerShown: false,
                 }}
-                initialRouteName="Login"
+                initialRouteName="Introduction"
                 >
                 
                 <Stack.Screen

@@ -1,7 +1,7 @@
-import React , {useState, useEffect} from 'react';
-import {SafeAreaView, Text, View, StyleSheet, Image, TouchableOpacity, TextInput, Button} from 'react-native';
+import React , {useState} from 'react';
+import {SafeAreaView, Text, View, StyleSheet, Image, TouchableOpacity, TextInput} from 'react-native';
 import { fonts, buttons , colors, inputs, borderRadius} from '../css/styles.js';
-import { gql , useQuery, useLazyQuery} from '@apollo/client';
+import { gql , useLazyQuery} from '@apollo/client';
 
 const GET_ACCOUNTS = gql`
     query GetAccounts{
@@ -35,10 +35,8 @@ const Login = () => {
     const [verifyAccount, { loading, data }] = useLazyQuery(VERIFY_ACCOUNT, {
         onCompleted: (result) => {
           if (result.login.success) {
-            // La verificación fue exitosa, puedes realizar acciones aquí
             console.log('Inicio de sesión exitoso');
           } else {
-            // La verificación falló, puedes realizar acciones aquí
             console.log('Inicio de sesión fallido');
           }
           setLoginSuccess(result.login.success);
@@ -136,12 +134,10 @@ const styles = StyleSheet.create({
       backgroundColor: colors.platine050,
       alignSelf: 'center',
       width: '80%',
-      height: 160,
+      height: '27%',
       marginTop: '4%',
-      //marginBottom: '1%',
       borderRadius: borderRadius.L,
       minHeight: 160,
-      
     },
     label: {
       margin: '3%',
