@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
-import { Animated, StyleSheet, Text, View, Image, Dimensions, SafeAreaView , TouchableOpacity} from 'react-native';
-import {colors, buttons, fonts, borderRadius} from '../css/styles.js';
+import { Animated, StyleSheet, View, Image, Dimensions, SafeAreaView} from 'react-native';
+import {colors, borderRadius} from '../css/styles.js';
 
 const width = Dimensions.get("window").width;
 
@@ -15,27 +15,15 @@ const Carousel = ({prop1}) => {
   const scrollX = React.useRef(new Animated.Value(0)).current;
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Listener para actualizar el índice actual
   scrollX.addListener(({ value }) => {
     const index = Math.round(value / container_width);
     setCurrentIndex(index);
   });
-
-  const handleButtonPress = () => {
-    // Lógica a ejecutar cuando se presione el botón
-    console.log('Botón presionado');
-  };
-
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar hidden />
       <View style={styles.carouselContainer}>
-      <View style={styles.logoContainer}>
-        <Image
-          source={require('../images/logoSmartShop.png')}
-          style={styles.logoImage}
-        />
-      </View>
+      
       <Animated.FlatList
         onScroll={Animated.event(
           [{nativeEvent: { contentOffset: {x: scrollX}}}], {useNativeDriver: true}
@@ -43,10 +31,8 @@ const Carousel = ({prop1}) => {
         data={images}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{paddingTop:8, marginHorizontal: side_space }}
-        //Cuando lo pasas muy rapido las imagenes toma impulso y puede ir hasta el final, esto lo cancela.
+        contentContainerStyle={{ marginHorizontal: side_space }}
         decelerationRate={0}
-        //Para que cada vez que se pase de imagen esta quede al centro.
         snapToInterval={container_width}
         snapToAlignment="start"
         scrollEventThrottle={16}
@@ -58,11 +44,9 @@ const Carousel = ({prop1}) => {
             (index + 1) * container_width,
           ]
 
-          const outputRange = [0, 30, 0];
-
           const translateY = scrollX.interpolate({
             inputRange,
-            outputRange
+            outputRange: [0, 30, 0],
           });
 
           return (
@@ -70,7 +54,7 @@ const Carousel = ({prop1}) => {
               <Animated.View
                 style={{
                   marginHorizontal: spacing,
-                  borderRadius: 34,
+                  borderRadius: borderRadius.L,
                   backgroundColor: colors.platine100,
                   alignItems: "center",
                   transform: [{ translateY }]
@@ -82,7 +66,6 @@ const Carousel = ({prop1}) => {
           );
         }}
       />
-       {/* Puntos (indicadores) debajo del carrusel */}
        <View style={styles.indicatorContainer}>
         {images.map((_, index) => (
           <View
@@ -94,10 +77,6 @@ const Carousel = ({prop1}) => {
           />
         ))}
       </View>
-      {/* Botón debajo de los puntos */}
-      <TouchableOpacity onPress={handleButtonPress} style={[buttons.thick, {marginBottom: 60}]}>
-          <Text style={fonts.button}>Presionar</Text>
-        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -110,18 +89,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   carouselContainer: {
-    marginTop: 40,
+    marginTop: 0,
     flex:1,
     alignItems: 'center',
-  },
-  logoContainer: {
-    width: 110,
-    height:150,
-  },
-  logoImage: {
-    resizeMode: "cover",
-    width:'100%',
-    height: '100%',
   },
   posterImage: {
     width: "100%",
@@ -133,7 +103,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 40
+    marginVertical: 20,
   },
   indicator: {
     width: 10,
