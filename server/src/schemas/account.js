@@ -19,7 +19,8 @@ const accountDef = gql`
 
     type VerifyAccountResult {
         success: Boolean!
-        message: String
+        message: String!
+        id: Int
     }
 
     type Mutation {

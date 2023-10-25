@@ -5,16 +5,24 @@ export const borderRadius = {
 }
 
 export const dropShadowS = {
-    shadowColor: 'black',
-    shadowOpacity: 0.25, // Transparencia del 25%
-    shadowOffset: { width: 0.2, height: 1.5 },
-    shadowRadius: 3,  
+    ...Platform.select({  
+    ios: {
+        shadowColor: 'black',
+        shadowOffset: { width: 7, height: 4 },
+        shadowOpacity: 1,
+        shadowRadius: 2,
+      },
+      android: {
+        elevation: 15,
+    }, 
+})
 }
 
 export const colors = {
     platine100: '#C0BEBC',
     platine400:'#7D766F',
     platine050: '#EBE9E8',
+    platine025: '#FDFDFD',
 
     ruby200: '#FC4845',
 }
@@ -31,6 +39,18 @@ export const fonts = {
     textRegular: {
         fontWeight: 'regular',
         fontSize: 12,
+    },
+    doubleHeaderRegular: {
+        fontWeight: 'regular',
+        fontSize: 24,
+    },
+    doubleHeadline: {
+        fontWeight: 'bold',
+        fontSize: 24,
+    },
+    titleRegular: {
+        fontWeight: 'regular',
+        fontSize: 18,
     }
 }
  export const inputs = {
