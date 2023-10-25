@@ -1,10 +1,15 @@
 const {ApolloServer, gql }= require('apollo-server');
-const typeDefs = require('./schemas/account.js');
-const resolvers = require('./resolvers/account');
+const accountTypeDefs = require('./schemas/account.js');
+const userTypeDefs = require('../src/schemas/user.js');
+const accountResolvers = require('./resolvers/account');
+const userResolvers = require('./resolvers/user.js')
+
+const combinedTypeDef = [accountTypeDefs, userTypeDefs];
+const combinedResolvers = [accountResolvers, userResolvers];
 
 const server = new ApolloServer({
-    typeDefs,
-    resolvers
+    typeDefs: combinedTypeDef,
+    resolvers: combinedResolvers
 })
 
 server.listen().then( ({ url }) => {

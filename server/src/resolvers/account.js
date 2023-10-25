@@ -2,9 +2,9 @@
 const accounts = [
     {
    id: 1,
-   account_name: 'Familia Monterey',
+   account_name: 'Fam',
    gmail: 'mariagalindo@gmail.com',
-   password: 'Pass123',
+   password: '123',
    creation_date: '2023-12-31T12:00:00',
    state: 'Activa'
  },
@@ -31,6 +31,7 @@ const accountRes = {
             return {
               success: true,
               message: 'Inicio de sesión exitoso',
+              id: account.id
             };
           } else {
             return {
