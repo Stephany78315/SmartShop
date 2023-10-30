@@ -10,7 +10,6 @@ const images = [
   ];
 
   export default function Introduction({navigation}) {
-    console.log('Estas en introduction')
 
     return (
         <SafeAreaView style={styles.container}>
@@ -25,7 +24,6 @@ const images = [
             <Carousel prop1={images}/>
                 
             <View>
-                {/* Utiliza el componente Link para redirigir */}
                 <TouchableOpacity onPress = {() => navigation.navigate('Login')} style={[buttons.thick, { marginBottom: 10 }]}>
                 <Text style={[fonts.button, {color: 'white'}]}>Empezar</Text>
                 </TouchableOpacity>
@@ -52,4 +50,3 @@ const styles = StyleSheet.create({
       height: '100%',
     },
 })
-

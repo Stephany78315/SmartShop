@@ -13,7 +13,7 @@ export const dropShadowS = {
         shadowRadius: 2,
       },
       android: {
-        elevation: 15,
+        elevation: 5,
     }, 
 })
 }
@@ -51,6 +51,14 @@ export const fonts = {
     titleRegular: {
         fontWeight: 'regular',
         fontSize: 18,
+    },
+    title:{
+        fontWeight: 'bold',
+        fontSize: 18,
+    },
+    subHeaderRegular: {
+        fontWeight: 'regular',
+        fontSize: 16,
     }
 }
  export const inputs = {

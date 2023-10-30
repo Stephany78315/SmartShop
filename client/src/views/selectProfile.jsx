@@ -1,6 +1,6 @@
 import React , {useState} from 'react';
-import {SafeAreaView, Animated, Text,Image, View, StyleSheet, Dimensions, ActivityIndicator} from 'react-native';
-import { fonts, buttons , colors, inputs, borderRadius} from '../css/styles.js';
+import {SafeAreaView, TouchableOpacity, Animated, Text,Image, View, StyleSheet, Dimensions, ActivityIndicator} from 'react-native';
+import { fonts} from '../css/styles.js';
 import { gql, useQuery} from '@apollo/client';
 import HeaderBack from '../components/headerBack.jsx';
 import { StatusBar } from 'expo-status-bar';
@@ -10,6 +10,7 @@ query Users_from_account($account_id: Int!) {
  users_from_account(account_id: $account_id) {
   user_name
   image
+  user_id
  }
 }
 `;
@@ -17,23 +18,9 @@ query Users_from_account($account_id: Int!) {
 const width = Dimensions.get("window").width;
 
 const container_width = width * 0.7;
-const side_space = (width - container_width) / 2;
-const spacing = 10;
-
-
-const images = [
-  { 
-    "user_name": "Paola",
-    "image": "https://n9.cl/mssjl"
-  },
- "https://acortar.link/zhjFDJ",
- "https://acortar.link/vqVffG",
- //"https://n9.cl/ocbphk"
-];
 
 const SelectProfile = ({route, navigation}) => { 
  const { id } = route.params;
- console.log('recibo id',id);
  const { loading, data } = useQuery(USERS_FROM_ACCOUNT, { variables: { account_id: id } });
  
  const scrollX = React.useRef(new Animated.Value(0)).current;
@@ -45,7 +32,6 @@ const SelectProfile = ({route, navigation}) => {
  });
 
  if (loading) {
-  // Aquí puedes mostrar un indicador de carga, un mensaje o cualquier otra cosa que desees mientras se cargan los datos.
   return (
     <View style={styles.loadingContainer}>
       <ActivityIndicator size="large" color="blue" />
@@ -55,14 +41,11 @@ const SelectProfile = ({route, navigation}) => {
 }
  return (
   <SafeAreaView style={styles.container}>
-    {/*Bar de regreso*/}
     <HeaderBack title={"Inicio de sesión"} navigation={navigation}/>
-    {/*Titulo ¿Quien eres?*/}
     <View>
      <Text style={[fonts.doubleHeadline, styles.title]}>¿Quién eres? Elige perfil ...</Text>
     </View>
 
-    {/*Carrusel de perfiles con Nombre donde se les pueda seleccionar y que haga una accion*/}
     <View style={[styles.carouselContainer]}>
       <StatusBar hidden/>
       <Animated.FlatList
@@ -78,33 +61,37 @@ const SelectProfile = ({route, navigation}) => {
         renderItem={({ item, index }) => {
           
           return (
-            <View style={{ width: 150, height: 120}}>
-              <Animated.View
-                style={{
-                  paddingHorizontal: 13,
-                  borderRadius: container_width,
-                  backgroundColor: "white",
-                  alignItems: "center",
-                }}
-              >
-                <Image key={index.toString()} source={item.image ? { uri: item.image } : require(`../images/profileCircleIcon.png`)} style={styles.posterImage} />
-              </Animated.View>
-              <Text style={[styles.imageText, fonts.titleRegular]}>{item.user_name}</Text>
-            </View>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('Profile Admin', {id_c: id, id_u: item.user_id, navigation:navigation});
+              }}
+            >
+              <View style={{ width: 150, height: 120}}>
+                <Animated.View
+                  style={{
+                    paddingHorizontal: 13,
+                    borderRadius: container_width,
+                    backgroundColor: "white",
+                    alignItems: "center",
+                  }}
+                >
+                  <Image key={index.toString()} source={item.image ? { uri: item.image } : require(`../images/icons/profileCircleIcon.png`)} style={styles.posterImage} />
+                </Animated.View>
+                <Text style={[styles.imageText, fonts.titleRegular]}>{item.user_name}</Text>
+              </View>
+            </TouchableOpacity>
           );
         }}
       />
       </View>
 
-    {/*Simbolo de mas*/}
-    <Image
-        source={require('../images/plusIcon.png')}
-        style={styles.plusIcon}
-    />
+    <TouchableOpacity  onPress={() => navigation.navigate('Profile Admin', {id_c: id, id_u: 0, navigation:navigation})}>
+      <Image style={{height: 55, width: 55}} source={require('../images/icons/plusIcon.png')}/>
+    </TouchableOpacity>
   </SafeAreaView>
  )
- 
 };
+
 const styles = StyleSheet.create({
 title: {
  alignSelf: 'center',
@@ -133,13 +120,6 @@ container: {
   margin:0,
   marginBottom: 0,
  },
- plusIcon:
- {
-  width: 50,
-  height: 50,
-  position: 'absolute',
-  bottom: '10%'
- },
  imageText: {
   marginTop: 5, // Espacio entre la imagen y el texto
   //marginHorizontal: 10,
@@ -149,7 +129,5 @@ container: {
   textAlign: 'center',
 },
 })
-
-
 
 export default SelectProfile;

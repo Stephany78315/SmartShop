@@ -36,6 +36,7 @@ const userDef = gql`
   type Query {
     users: [User]
     users_from_account(account_id:Int!): [User]
+    userById(user_id:Int!): User
   }
 
   type Mutation {

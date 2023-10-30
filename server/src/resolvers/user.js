@@ -62,7 +62,8 @@ const users = [
         notification: {
             products_out_of_stock: true,
             products_low_price: true,
-            expired_products: true},
+            expired_products: true
+        },
         food_preferences: [{
             name: "Vegano", 
             category: 'Necesario'
@@ -75,6 +76,10 @@ const userRes = {
         users: () => users,
         users_from_account: (_, {account_id }) => {
             return users.filter(user => user.account_id === account_id);
+        },
+        userById: (_, {user_id}) => {
+            const user = users.find(user => user.user_id === user_id);
+            return user || null;
         },
     },
 
