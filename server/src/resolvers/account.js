@@ -39,7 +39,11 @@ const accountRes = {
               message: 'Nombre de cuenta, gmail o contraseña incorrecto',
             };
           }
-       }
+       },
+       accountById: (_, {id}) => {
+        const account = accounts.find(account => account.id === id);
+        return account || null;
+       },
    },
    Mutation: {
         addAccount: (_, {account_name, gmail, password}) => {

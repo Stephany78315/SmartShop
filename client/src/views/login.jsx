@@ -1,20 +1,7 @@
-import React , {useState} from 'react';
+import React , {useState , useMemo} from 'react';
 import {SafeAreaView, Text, View, StyleSheet, Image, TouchableOpacity, TextInput} from 'react-native';
 import { fonts, buttons , colors, inputs, borderRadius} from '../css/styles.js';
 import { gql , useLazyQuery} from '@apollo/client';
-
-const GET_ACCOUNTS = gql`
-    query GetAccounts{
-        accounts {
-          id
-          account_name
-          gmail
-          password
-          creation_date
-          state
-        }
-      }
-`;
 
 const VERIFY_ACCOUNT = gql`
     query Login($identifier: String!, $password: String!) {
@@ -27,7 +14,6 @@ const VERIFY_ACCOUNT = gql`
 `;
 
 const Login = ({navigation}) => {
-  console.log('Estoy en login');
 
   const [name, setName] = useState('Fam');
   const [password, setPassword] = useState('123');
@@ -36,8 +22,6 @@ const Login = ({navigation}) => {
   const [verifyAccount, { loading, data }] = useLazyQuery(VERIFY_ACCOUNT, {
     onCompleted: (result) => {
       if (result.login.success) {
-        console.log('Inicio de sesión exitoso');
-        console.log(data.login.id)
         navigation.navigate('Select Profile',{id: data.login.id});
       } else {
         console.log('Inicio de sesión fallido');
@@ -45,6 +29,8 @@ const Login = ({navigation}) => {
       setLoginSuccess(result.login.success);
     },
   });
+
+  const verifyAccountCallBack = useMemo(() => verifyAccount, []);
     
   const handleNameChange = (text) => {
     setName(text);
@@ -53,9 +39,6 @@ const Login = ({navigation}) => {
   const handlePasswordChange = (text) => {
     setPassword(text);
   };
-
-  const handleSignupButtonClick = () => {
-  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -93,7 +76,7 @@ const Login = ({navigation}) => {
         <TouchableOpacity 
           style={[buttons.thick, styles.button ,{backgroundColor: colors.platine400}]}
           onPress={() => {
-              verifyAccount({ variables: { identifier: name, password } });
+              verifyAccountCallBack({ variables: { identifier: name, password } });
             }}
         >
         <Text style={[fonts.button, {color: 'white'}]}>Inicio de sesión</Text>
@@ -101,7 +84,7 @@ const Login = ({navigation}) => {
 
         <TouchableOpacity 
           style={[buttons.thick, styles.button]}
-          onPress={handleSignupButtonClick}
+          onPress={() => {navigation.navigate('Profile Admin',{id_c: 0, id_u: 0, navigation:navigation});}}
         >
         <Text style={[fonts.button, {color: 'white'}]}>Registrarse</Text>
         </TouchableOpacity>
@@ -149,6 +132,5 @@ const styles = StyleSheet.create({
       alignSelf: 'center',
   },
 })
-
 
 export default Login

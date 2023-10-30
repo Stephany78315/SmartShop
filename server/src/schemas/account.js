@@ -2,7 +2,7 @@ const { gql } = require('apollo-server')
 
 const accountDef = gql`
     scalar Date
-
+    
     type Account {
         id: Int!
         account_name: String!
@@ -15,6 +15,7 @@ const accountDef = gql`
     type Query {
         accounts: [Account]
         login(identifier: String!, password: String!): VerifyAccountResult
+        accountById(id:Int!): Account
     }
 
     type VerifyAccountResult {

@@ -7,7 +7,7 @@ const HeaderBack = ({title, navigation}) => {
   <View style={[styles.container, dropShadowS]}>
       <TouchableOpacity onPress={() => navigation.goBack()} style={{ width: 25, height: 25, alignItems: 'right'}}>
         {/* Flecha de regreso */}
-        <Image source={require('../images/arrowBack.png')} style={styles.icon}/>
+        <Image source={require('../images/icons/arrowBackIcon.png')} style={styles.icon}/>
       </TouchableOpacity>
       <Text style={[fonts.doubleHeaderRegular, styles.title]}>
         {title}
