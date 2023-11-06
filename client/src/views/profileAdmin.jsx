@@ -1,40 +1,34 @@
 import {Text, StatusBar, View, Image, ActivityIndicator, ScrollView, TouchableOpacity} from 'react-native';
 import HeaderMenu from '../components/headerMenu';
-import { colors , borderRadius, fonts} from '../css/styles';
-import FormButtonsAndIcons from '../components/formButtons&Icons';
+import { colors , borderRadius, fonts, dropShadowS} from '../css/styles';
 import { gql, useQuery} from '@apollo/client';
-import CameraModal from '../components/camara';
 import React, { useState, useEffect } from 'react';
 import { LogBox } from 'react-native';
 
-const specify = [
- {
- icon: require('../images/icons/plusIcon.png'),
- text: "Ajuste de perfil",
- navegateTo: "Configuration Profile"
- },
- {
-  icon: require('../images/icons/profileCircleIcon.png'),
-  text: "Cuenta de contribuidor",
-  navegateTo: "Contribuidor"
- },
- {
-  icon: require('../images/icons/cartShopCircleIcon.png'),
-  text: "Preferencias alimentarias",
-  navegateTo: "Contribuidor"
- },
- {
-  icon: require('../images/icons/settingCircleIcon.png'),
-  text: "Ajustes de la aplicación",
-  navegateTo: "Contribuidor"
- }
-]
+
 
 const USERBYID = gql`
   query UserById($userId: Int!) {
     userById(user_id: $userId) {
+      user_id
+      account_id
       user_name
       image
+      gender
+      date_of_birth
+      city
+      contribution {
+        activity_type
+        id_object
+        activity_date
+      }
+      food_preferences {
+        category
+        characteristics {
+          name
+          importance
+        }
+      }
     }
   }
 `;
@@ -48,11 +42,19 @@ const ACCOUNTBYID = gql`
       password
       creation_date
       state
+      payments {
+        payment_id
+        payment_plan_id
+        date
+        payment_name
+        state
+        qr_code
+      }
     }
   }
 `;
 
-const ProfileAdmin = ({route, navigation}) => { 
+const ProfileAdmin = ({route, navigation}) => {
   const { id_u, id_c } = route.params;
 
   const [user, setUser] = useState(null);
@@ -77,9 +79,27 @@ const ProfileAdmin = ({route, navigation}) => {
     );
   }
 
+
   LogBox.ignoreLogs([
     'Non-serializable values were found in the navigation state',
   ]);
+
+  const goSettings = () => {
+    navigation.navigate("Profile Settings",{userData: userData, accountData: accountData, navigation});
+  }
+
+  const goContributorProfile = () => {
+    navigation.navigate("Contributor Profile",{userData: userData, accountData: accountData, navigation});
+  }
+
+  const goFoodPreferences = () => {
+    navigation.navigate("Food Preferences",{userData: userData, accountData: accountData, navigation});
+  }
+
+  const goAplicationSettings = () => {
+    navigation.navigate("Aplication Settings",{userData: userData, accountData: accountData, navigation});
+  }
+
 
  return (
   <ScrollView contentContainerStyle={styles.scrollView}>
@@ -126,9 +146,44 @@ const ProfileAdmin = ({route, navigation}) => {
       </View>)
     : <View></View>}
     
-    <View>
-      <FormButtonsAndIcons specify={specify} title={''} navigation={navigation}/>
+    <View style={[styles.containerForm, dropShadowS]}>
+      <View style={styles.itemForm}>
+        <Image source={require('../images/icons/plusIcon.png')} style={styles.imageForm} />
+        <View style={[styles.buttonForm, dropShadowS]}>
+        <TouchableOpacity onPress={goSettings} >
+          <Text style={[fonts.textButtonRegular, {textAlign: 'center'}]}>{"Ajuste de perfil"}</Text>
+        </TouchableOpacity>
+        </View>
+       </View>
+
+       <View style={styles.itemForm}>
+        <Image source={require('../images/icons/profileCircleIcon.png')} style={styles.imageForm} />
+        <View style={[styles.buttonForm, dropShadowS]}>
+        <TouchableOpacity onPress={goContributorProfile} >
+          <Text style={[fonts.textButtonRegular, {textAlign: 'center'}]}>{"Cuenta de contribuidor"}</Text>
+        </TouchableOpacity>
+        </View>
+       </View>
+
+       <View style={styles.itemForm}>
+        <Image source={require('../images/icons/cartShopCircleIcon.png')} style={styles.imageForm} />
+        <View style={[styles.buttonForm, dropShadowS]}>
+        <TouchableOpacity onPress={goFoodPreferences} >
+          <Text style={[fonts.textButtonRegular, {textAlign: 'center'}]}>{"Preferencias Alimentarias"}</Text>
+        </TouchableOpacity>
+        </View>
+       </View>
+
+       <View style={styles.itemForm}>
+        <Image source={require('../images/icons/settingCircleIcon.png')} style={styles.imageForm} />
+        <View style={[styles.buttonForm, dropShadowS]}>
+        <TouchableOpacity onPress={goAplicationSettings} >
+          <Text style={[fonts.textButtonRegular, {textAlign: 'center'}]}>{"Ajustes de la aplicación"}</Text>
+        </TouchableOpacity>
+        </View>
+       </View>
     </View>
+
   </View>
   </ScrollView>
 )}
@@ -166,6 +221,24 @@ const styles = {
  editImage: {
   width: '100%',
   height: '100%',
+ },
+ containerForm: {
+  backgroundColor: colors.platine025,
+  margin: '5%',
+  borderRadius: borderRadius.L,
+ },
+ buttonForm: {
+  backgroundColor: colors.platine025,
+  padding: 10,
+  width: '85%',
+  height: 40,
+  borderRadius: borderRadius.L,
+ },
+ itemForm: {
+  flexDirection: 'row', alignItems: 'center', margin: '4%' 
+ },
+ imageForm: {
+  width: 30, height: 30, marginRight: '4%'
  }
 };
 

@@ -1,21 +1,50 @@
-'use strict'
+const { gql } = require('apollo-server');
 
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const paymentPlanDef = gql`
 
-const paymentPlanSchema = new Schema({
-    payment_name: String,
-    price: Number,
-    currency: String,
-    description: String,
-    duration: String,
-    contribution_pass: { //hace referencia que si hace tanta contribucion pueda tener cierta cantidad de dias de uso gratis.
-        recetas_edits: Number,
-        products_edits: Number,
-        products_adds: Number
+    type PaymentPlan {
+        payment_plan_id: String
+        payment_name: String
+        price: Int
+        currency: String
+        description: String
+        duration: Int
+        type_duration: String
+        contribution_pass: Contribution_pass
     }
-});
 
-module.exports = mongoose.model('PaymentPlan', paymentPlanSchema);
+    type Contribution_pass {
+        recipes_edit: Int!
+        recipes_add: Int!
+        products_edit: Int!
+        products_add: Int!
+    }
 
+    type Query {
+        paymentPlans: [PaymentPlan]
+    }
 
+    type Mutation {
+        addPaymentPlan(
+            payment_name: String!
+            price: Int!
+            currency: String!
+            description: String!
+            duration: Int!
+            type_duration: String!
+            contribution_pass: Contribution_passInput
+        ): PaymentPlan
+
+        deletePaymentPlan(payment_plan_id: String!): Boolean
+    }
+
+    input Contribution_passInput {
+        recipes_edit: Int!
+        recipes_add: Int!
+        products_edit: Int!
+        products_add: Int!
+    }
+
+`;
+
+module.exports = paymentPlanDef;

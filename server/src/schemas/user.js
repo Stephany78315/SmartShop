@@ -10,9 +10,8 @@ const userDef = gql`
     image: String
     gender: String
     date_of_birth: Date
-    allergies: String
+    city: String
     contribution: [Contribution]
-    notification: Notification
     food_preferences: [FoodPreference]
   }
 
@@ -22,15 +21,14 @@ const userDef = gql`
     activity_date: Date
   }
 
-  type Notification {
-    products_out_of_stock: Boolean
-    products_low_price: Boolean
-    expired_products: Boolean
+  type FoodPreference {
+    category: String
+    characteristics: [FoodCharacteristic]
   }
 
-  type FoodPreference {
+  type FoodCharacteristic {
     name: String
-    category: String
+    importance: String
   }
 
   type Query {
@@ -43,34 +41,26 @@ const userDef = gql`
     addUser(
       account_id: Int!
       user_name: String!
-      image: String
+      image: String!
       gender: String!
       date_of_birth: Date!
-      allergies: String
-      contribution: [ContributionInput]
-      notification: NotificationInput!
-      food_preferences: [FoodPreferenceInput]!
+      city: String!
     ): User
     
+    updateUser(
+      user_id: Int!
+      user_name: String
+      image: String
+      gender: String
+      date_of_birth: Date
+      city: String
+      ): Boolean
+
     deleteUser(user_id: Int!): Boolean
   }
 
-  input ContributionInput {
-    activity_type: String
-    id_object: String
-    activity_date: Date
-  }
 
-  input NotificationInput {
-    products_out_of_stock: Boolean
-    products_low_price: Boolean
-    expired_products: Boolean
-  }
 
-  input FoodPreferenceInput {
-    name: String
-    category: String
-  }
 `;
 
 module.exports = userDef;

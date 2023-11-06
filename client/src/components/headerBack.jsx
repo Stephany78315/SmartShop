@@ -5,7 +5,7 @@ import {colors, fonts, dropShadowS} from '../css/styles.js';
 const HeaderBack = ({title, navigation}) => {
  return (
   <View style={[styles.container, dropShadowS]}>
-      <TouchableOpacity onPress={() => navigation.goBack()} style={{ width: 25, height: 25, alignItems: 'right'}}>
+      <TouchableOpacity onPress={() => {navigation.goBack()}} style={{ width: 25, height: 25, alignItems: 'right'}}>
         {/* Flecha de regreso */}
         <Image source={require('../images/icons/arrowBackIcon.png')} style={styles.icon}/>
       </TouchableOpacity>
