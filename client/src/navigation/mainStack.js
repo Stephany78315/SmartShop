@@ -5,6 +5,10 @@ import Introduction from '../views/introduction.jsx';
 import Login from '../views/login.jsx';
 import SelectProfile from "../views/selectProfile.jsx";
 import ProfileAdmin from "../views/profileAdmin.jsx";
+import ProfileSettings from "../views/profileSettings.jsx";
+import ContributorProfile from "../views/contributorProfile.jsx";
+import FoodPreferences from "../views/foodPreferences.jsx";
+import AplicationSettings from "../views/aplicationSettings.jsx";
 
 const Stack = createNativeStackNavigator();
 
@@ -35,6 +39,25 @@ const MainStack = () => {
                 <Stack.Screen
                     name = {'Profile Admin'}
                     component={ProfileAdmin}
+                />
+
+                <Stack.Screen 
+                    name = {'Profile Settings'}
+                    component={ProfileSettings}
+                />
+
+                <Stack.Screen 
+                    name = {'Contributor Profile'}
+                    component={ContributorProfile}
+                />
+
+                <Stack.Screen 
+                    name = {'Food Preferences'}
+                    component={FoodPreferences}
+                />
+                <Stack.Screen 
+                    name = {'Aplication Settings'}
+                    component={AplicationSettings}
                 />
 
             </Stack.Navigator>

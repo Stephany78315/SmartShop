@@ -29,8 +29,8 @@ const CameraModal = ({ isVisible, onClose, onPictureTaken }) => {
     try{
      await MediaLibrary.createAssetAsync(image);
      alert('Foto guardada!')
+     onPictureTaken(Image);
      setImage(null);
-     onPictureTaken();
      onClose();
     }catch(e){
      console.log(e);

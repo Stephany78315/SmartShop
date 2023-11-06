@@ -2,7 +2,9 @@ import {View, StyleSheet, Text, Image, TouchableOpacity} from 'react-native';
 import { fonts, colors, dropShadowS, borderRadius} from '../css/styles';
 
 
-const FormButtonsAndIcons = ({specify, title, navigation}) => {
+const FormButtonsAndIcons = ({specify, title, navigation, information}) => {
+  console.log("Form botones, information:", information);
+  console.log('specify',specify);
 
  return (
   <View style={[styles.container, dropShadowS]}>
@@ -11,7 +13,7 @@ const FormButtonsAndIcons = ({specify, title, navigation}) => {
         <View key={index} style={{ flexDirection: 'row', alignItems: 'center', margin: '4%' }}>
          <Image source={item.icon} style={{ width: 30, height: 30, marginRight: '4%' }} />
          <View style={[styles.button, dropShadowS]}>
-          <TouchableOpacity onPress={() => console.log("Presionaste navegar")} >
+          <TouchableOpacity onPress={() => specify.navegateTo} >
            <Text style={[fonts.textButtonRegular, {textAlign: 'center'}]}>{item.text}</Text>
           </TouchableOpacity>
          </View>

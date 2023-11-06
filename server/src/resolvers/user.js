@@ -4,9 +4,9 @@ const users = [
         account_id: 1,
         user_name: "Paola de los angeles loca",
         image: "https://n9.cl/mbtwp",
-        gender: "Female",
+        gender: "Femenino",
         date_of_birth: '2000-11-30T12:00:00',
-        allergies: "Gluten",
+        city: 'Cochabamba',
         contribution: [
             {
                 activity_type: "Comentario",
@@ -14,44 +14,79 @@ const users = [
                 activity_date: "2023-10-23T14:30:00"
             }
         ],
-        notification: {
-            products_out_of_stock: true,
-            products_low_price: true,
-            expired_products: true},
-        food_preferences: [{
-            name: "Vegano", 
-            category: 'Necesario'
-        }],
+        food_preferences: [
+            {category: "Nutritional quality",
+             characteristics: [{
+                name: "Salt in low quantity",
+                importance: "Not important",
+             },{
+                name: "Sugar in low quantity",
+                importance: "Not important",
+             }]
+            },{category: "Ingredients",
+            characteristics: [{
+               name: "Vegan",
+               importance: "Not important",
+            },{
+               name: "Vegetarian",
+               importance: "Not important",
+            }]
+           },{category: "Allergens",
+           characteristics: [{
+              name: "Without Gluten",
+              importance: "Not important",
+           },{
+              name: "Without Milk",
+              importance: "Not important",
+           }]
+          }
+        ],
     },
     {
         user_id: 2,
         account_id: 1,
         user_name: "Carlos",
-        image: "",
-        gender: "Male",
+        image: "https://n9.cl/w19kzk",
+        gender: "Masculino",
         date_of_birth: "1995-08-15T09:30:00",
-        allergies: "Lácteos",
+        city: 'La Paz',
         contribution: [],
-        notification: {
-            products_out_of_stock: true,
-            products_low_price: false,
-            expired_products: true
-        },
         food_preferences: [
-            {
-            name: "Vegetariano",
-            category: "No importa mucho"
-            }
-        ]
+            {category: "Nutritional quality",
+             characteristics: [{
+                name: "Salt in low quantity",
+                importance: "Not important",
+             },{
+                name: "Sugar in low quantity",
+                importance: "Not important",
+             }]
+            },{category: "Ingredients",
+            characteristics: [{
+               name: "Vegan",
+               importance: "Not important",
+            },{
+               name: "Vegetarian",
+               importance: "Not important",
+            }]
+           },{category: "Allergens",
+           characteristics: [{
+              name: "Without Gluten",
+              importance: "Not important",
+           },{
+              name: "Without Milk",
+              importance: "Not important",
+           }]
+          }
+        ],
     },
     {
         user_id: 3,
         account_id: 1,
         user_name: "Maria",
         image: "https://n9.cl/mbtwp",
-        gender: "Female",
+        gender: "Femenino",
         date_of_birth: '2000-11-30T12:00:00',
-        allergies: "Gluten",
+        city: 'Beni',
         contribution: [
             {
                 activity_type: "Comentario",
@@ -59,15 +94,33 @@ const users = [
                 activity_date: "2023-10-23T14:30:00"
             }
         ],
-        notification: {
-            products_out_of_stock: true,
-            products_low_price: true,
-            expired_products: true
-        },
-        food_preferences: [{
-            name: "Vegano", 
-            category: 'Necesario'
-        }],
+        food_preferences: [
+            {category: "Nutritional quality",
+             characteristics: [{
+                name: "Salt in low quantity",
+                importance: "Not important",
+             },{
+                name: "Sugar in low quantity",
+                importance: "Not important",
+             }]
+            },{category: "Ingredients",
+            characteristics: [{
+               name: "Vegan",
+               importance: "Not important",
+            },{
+               name: "Vegetarian",
+               importance: "Not important",
+            }]
+           },{category: "Allergens",
+           characteristics: [{
+              name: "Without Gluten",
+              importance: "Not important",
+           },{
+              name: "Without Milk",
+              importance: "Not important",
+           }]
+          }
+        ],
     },
 ]
 
@@ -84,25 +137,75 @@ const userRes = {
     },
 
     Mutation: {
-        addUser: (_, {account_id, user_name, image, gender, date_of_birth, allergies, contribution, notification, food_preferences }) => {
-      
-            
+        addUser: (_, {account_id, user_name, image, gender, date_of_birth, city}) => {         
 
             const newUser = {
               user_id: users.length + 1,
               account_id: account_id,
               user_name: user_name,
-              image: image || "",
+              image: image,
               gender: gender,
               date_of_birth: date_of_birth,
-              allergies: allergies || "",
-              contribution: contribution,
-              notification: notification,
-              food_preferences: food_preferences,
+              city, city,
+              contribution: [],
+              food_preferences: [
+                    {category: "Nutritional quality",
+                     characteristics: [{
+                        name: "Salt in low quantity",
+                        importance: "Not important",
+                     },{
+                        name: "Sugar in low quantity",
+                        importance: "Not important",
+                     }]
+                    },{category: "Ingredients",
+                    characteristics: [{
+                       name: "Vegan",
+                       importance: "Not important",
+                    },{
+                       name: "Vegetarian",
+                       importance: "Not important",
+                    }]
+                   },{category: "Allergens",
+                   characteristics: [{
+                      name: "Without Gluten",
+                      importance: "Not important",
+                   },{
+                      name: "Without Milk",
+                      importance: "Not important",
+                   }]
+                  }
+                ]
             };
 
             users.push(newUser);
             return newUser;
+        },
+
+        updateUser: (_, {user_id, user_name, image, gender, date_of_birth, city}) => {
+            const userIndex = users.findIndex(user => user.user_id === user_id);
+
+            if (userIndex === -1) {
+            return false; // El usuario no fue encontrado, devuelve false
+            }
+
+            // Actualiza el usuario si se proporcionan nuevos valores
+            if (user_name) {
+            users[userIndex].user_name = user_name;
+            }
+            if (image) {
+            users[userIndex].image = image;
+            }
+            if (gender) {
+            users[userIndex].gender = gender;
+            }
+            if (date_of_birth) {
+            users[userIndex].date_of_birth = date_of_birth;
+            }
+            if (city) {
+            users[userIndex].city = city;
+            }
+
+            return true;
         },
 
         deleteUser: (_, { user_id }) => {
