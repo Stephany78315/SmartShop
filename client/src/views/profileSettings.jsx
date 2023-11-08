@@ -212,7 +212,6 @@ return (
  <ScrollView contentContainerStyle={styles.scrollView}>
    <View style={styles.container}>
    <StatusBar hidden/>
-   <HeaderBack title={"Ajustes de Perfil"} navigation={navigation}/>
 
    
       {/* Imagen del perfil */}
