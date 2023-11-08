@@ -24,7 +24,7 @@ const images = [
             <Carousel prop1={images}/>
                 
             <View>
-                <TouchableOpacity onPress = {() => navigation.navigate('Login')} style={[buttons.thick, { marginBottom: 10 }]}>
+                <TouchableOpacity onPress = {() => navigation.navigate('Main',{screen:'Inicio de Sesión'})} style={[buttons.thick, { marginBottom: 10 }]}>
                 <Text style={[fonts.button, {color: 'white'}]}>Empezar</Text>
                 </TouchableOpacity>
             </View>

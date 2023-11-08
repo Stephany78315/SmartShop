@@ -8,7 +8,6 @@ const ContributorProfile = ({route, navigation}) => {
  return (
   <ScrollView style={styles.container}>
    <StatusBar hidden/>
-   <HeaderBack title={"Cuenta de contribuidor"} navigation={navigation}/>
 
    <View style={[styles.containerForm, dropShadowS]}>
       <View style={styles.itemForm}>

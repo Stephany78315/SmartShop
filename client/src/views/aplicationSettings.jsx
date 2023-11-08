@@ -33,7 +33,6 @@ const AplicationSettings = ({route, navigation}) => {
  return (
   <ScrollView style={styles.container}>
    <StatusBar hidden/>
-   <HeaderBack title={"Ajustes de la aplicación"} navigation={navigation}/>
 
    <View style={[styles.containerForm, dropShadowS]}>
    {settingsOptions.map((option) => (

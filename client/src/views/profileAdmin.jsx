@@ -85,19 +85,19 @@ const ProfileAdmin = ({route, navigation}) => {
   ]);
 
   const goSettings = () => {
-    navigation.navigate("Profile Settings",{userData: userData, accountData: accountData, navigation});
+    navigation.navigate('Main', {screen: "Ajustes de Perfil",params: {userData: userData, accountData: accountData, navigation}});
   }
 
   const goContributorProfile = () => {
-    navigation.navigate("Contributor Profile",{userData: userData, accountData: accountData, navigation});
+    navigation.navigate('Main',{screen:"Perfil de Contribuidor",params:{userData: userData, accountData: accountData, navigation}});
   }
 
   const goFoodPreferences = () => {
-    navigation.navigate("Food Preferences",{userData: userData, accountData: accountData, navigation});
+    navigation.navigate('Main',{screen:"Preferencias Alimenticias",params:{userData: userData, accountData: accountData, navigation}});
   }
 
   const goAplicationSettings = () => {
-    navigation.navigate("Aplication Settings",{userData: userData, accountData: accountData, navigation});
+    navigation.navigate('Main', {screen:"Ajustes de la Aplicación",params:{userData: userData, accountData: accountData, navigation}});
   }
 
 
@@ -107,7 +107,7 @@ const ProfileAdmin = ({route, navigation}) => {
    
     <StatusBar hidden/>
     <View>
-     <HeaderMenu/>
+     <HeaderMenu navigation={navigation}/>
     </View>
     {(userData !== undefined && userData.userById !== null) && (accountData !== undefined && accountData.accountById !== null) ? (
       <View>

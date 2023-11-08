@@ -1,9 +1,10 @@
+import 'react-native-gesture-handler';
 import React from 'react'
-import MainStack from './src/navigation/mainStack.js';
 import { ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
+import MainDrawer from './src/navigation/mainStack.js';
 
 const client = new ApolloClient({
-  uri: 'http://192.168.0.8:4000/',
+  uri: 'http://192.168.0.11:4000/',
   cache: new InMemoryCache()
 })
 
@@ -12,7 +13,7 @@ export default function App() {
 
     return (
     <ApolloProvider client={client}>
-      <MainStack/>
+      <MainDrawer/>
     </ApolloProvider>
     )
 }

@@ -22,7 +22,7 @@ const Login = ({navigation}) => {
   const [verifyAccount, { loading, data }] = useLazyQuery(VERIFY_ACCOUNT, {
     onCompleted: (result) => {
       if (result.login.success) {
-        navigation.navigate('Select Profile',{id: data.login.id});
+        navigation.navigate('Main', {screen:'Selección de Perfil',params: {id: data.login.id}});
       } else {
         console.log('Inicio de sesión fallido');
       }
@@ -84,7 +84,7 @@ const Login = ({navigation}) => {
 
         <TouchableOpacity 
           style={[buttons.thick, styles.button]}
-          onPress={() => {navigation.navigate('Profile Admin',{id_c: 0, id_u: 0, navigation:navigation});}}
+          onPress={() => {navigation.navigate('Main', {screen: 'Administración de Perfil',params: {id_c: 0, id_u: 0, navigation:navigation}});}}
         >
         <Text style={[fonts.button, {color: 'white'}]}>Registrarse</Text>
         </TouchableOpacity>

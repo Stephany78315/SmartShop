@@ -41,7 +41,6 @@ const SelectProfile = ({route, navigation}) => {
 }
  return (
   <SafeAreaView style={styles.container}>
-    <HeaderBack title={"Inicio de sesión"} navigation={navigation}/>
     <View>
      <Text style={[fonts.doubleHeadline, styles.title]}>¿Quién eres? Elige perfil ...</Text>
     </View>
@@ -63,7 +62,7 @@ const SelectProfile = ({route, navigation}) => {
           return (
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('Profile Admin', {id_c: id, id_u: item.user_id, navigation:navigation});
+                navigation.navigate('Main', {screen: 'Administración de Perfil' , params: {id_c: id, id_u: item.user_id, navigation:navigation}});
               }}
             >
               <View style={{ width: 150, height: 120}}>
@@ -85,7 +84,7 @@ const SelectProfile = ({route, navigation}) => {
       />
       </View>
 
-    <TouchableOpacity  onPress={() => navigation.navigate('Profile Admin', {id_c: id, id_u: 0, navigation:navigation})}>
+    <TouchableOpacity  onPress={() => navigation.navigate('Main',{screen: 'Administración de Perfil', params: {id_c: id, id_u: 0, navigation:navigation}})}>
       <Image style={{height: 55, width: 55}} source={require('../images/icons/plusIcon.png')}/>
     </TouchableOpacity>
   </SafeAreaView>
