@@ -1,6 +1,5 @@
-import { View, StyleSheet, StatusBar, Dimensions, Text, TouchableOpacity, ScrollView} from "react-native";
-import HeaderBack from "../components/headerBack";
-import { dropShadowS, fonts, colors , borderRadius} from "../css/styles";
+import { View, StyleSheet, Text, TouchableOpacity} from "react-native";
+import { fonts, colors } from "../css/styles";
 
 
 const CheckBox = ({label, checked, onChange, navigation}) => {

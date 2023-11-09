@@ -2,7 +2,6 @@ import React , {useState} from 'react';
 import {SafeAreaView, TouchableOpacity, Animated, Text,Image, View, StyleSheet, Dimensions, ActivityIndicator} from 'react-native';
 import { fonts} from '../css/styles.js';
 import { gql, useQuery} from '@apollo/client';
-import HeaderBack from '../components/headerBack.jsx';
 import { StatusBar } from 'expo-status-bar';
 
 const USERS_FROM_ACCOUNT = gql`

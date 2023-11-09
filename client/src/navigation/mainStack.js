@@ -11,13 +11,14 @@ import FoodPreferences from "../views/foodPreferences.jsx";
 import AplicationSettings from "../views/aplicationSettings.jsx";
 import CustomDrawer from "../components/customDrawer.jsx";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import CamSanner from "../views/camScanner.jsx";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator()
 
 const MainStack = () => {
     return (
-        <Stack.Navigator initialRouteName="Login">                
+        <Stack.Navigator initialRouteName={'Introduccion'}>                
             <Stack.Screen name={'Introduccion'} component={Introduction} options={{headerShown: false}}/>
             <Stack.Screen name={'Inicio de Sesión'} component={Login} options={{headerShown: false}}/>
             <Stack.Screen name={'Selección de Perfil'} component={SelectProfile} options={{headerShown: true}}/>
@@ -26,6 +27,7 @@ const MainStack = () => {
             <Stack.Screen name={'Perfil de Contribuidor'} component={ContributorProfile} options={{headerShown: true}}/>
             <Stack.Screen name={'Preferencias Alimenticias'} component={FoodPreferences} options={{headerShown: true}}/>
             <Stack.Screen name={'Ajustes de la Aplicación'} component={AplicationSettings} options={{headerShown: true}}/>
+            <Stack.Screen name={'Scanner de BC'} component={CamSanner} options={{headerShown: false}}/>
         </Stack.Navigator>
     )
 }
@@ -33,10 +35,11 @@ const MainStack = () => {
 const MainDrawer = () => {
     return (
         <NavigationContainer>
-            <Drawer.Navigator screenOptions={{headerShown: false}} initialRouteName="Introduction" drawerContent={(props) => <CustomDrawer {...props} />}>
+            <Drawer.Navigator  initialRouteName={'Main'} drawerContent={(props) => <CustomDrawer {...props} />}>
                 
-                <Drawer.Screen name={'Introducción'} component={Introduction}/>
+                <Drawer.Screen name={'Introducción'} component={Introduction} options={{headerShown: true}}/>
                 <Drawer.Screen name={'Inicio de Sesión'} component={Login}/>
+                <Drawer.Screen name={'Scanner de BC'} component={CamSanner} options={{headerShown: false}} />
                 <Drawer.Screen name='Main' component={MainStack} options={{ drawerLabel: () => null }}/>
             </Drawer.Navigator>
         </NavigationContainer>
