@@ -1,5 +1,4 @@
-import { View, StyleSheet, StatusBar, Dimensions, Text, TouchableOpacity, ScrollView} from "react-native";
-import HeaderBack from "../components/headerBack";
+import { View, StyleSheet, StatusBar, ScrollView} from "react-native";
 import { dropShadowS, fonts, colors , borderRadius} from "../css/styles";
 import CheckBox from "../components/checkBox";
 import { useState } from "react";

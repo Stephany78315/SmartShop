@@ -1,5 +1,4 @@
 import { ScrollView, View, StatusBar, Image, Text, TouchableOpacity, LogBox} from "react-native";
-import HeaderBack from "../components/headerBack";
 import { colors, fonts, borderRadius, buttons } from "../css/styles";
 import { useState, useEffect } from "react";
 import DateTimePicker from '@react-native-community/datetimepicker';

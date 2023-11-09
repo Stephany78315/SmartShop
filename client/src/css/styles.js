@@ -80,5 +80,14 @@ export const buttons = {
         borderRadius: borderRadius.L,
         alignItems: 'center',
         textAlign: 'center',
+    },
+    thick050: {
+        height: 40,
+        width: 160,
+        backgroundColor: colors.platine050,
+        justifyContent: 'center',
+        borderRadius: borderRadius.L,
+        alignItems: 'center',
+        textAlign: 'center',
     }
 }

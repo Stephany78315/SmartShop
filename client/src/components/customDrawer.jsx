@@ -30,7 +30,7 @@ const CustomDrawer = (props) => {
          </TouchableOpacity>
          <TouchableOpacity
          style={styles.icon}
-         onPress={() => navigateToScreen("Scanner")} // Redirige a la página deseada
+         onPress={() => navigateToScreen("Scanner de BC")} // Redirige a la página deseada
          >
          <MaterialIcons name="qr-code-scanner" size={24} color="black" />
          <Text style={fonts.textButtonRegular}>Scanner</Text>
@@ -43,7 +43,7 @@ const CustomDrawer = (props) => {
           <FontAwesome5 name="list-ul" size={size} color={color} />
         )}
         labelStyle={[fonts.textButtonRegular,{color: 'black'}]}
-        onPress={() => navigateToScreen("Introduction")}
+        onPress={() => navigateToScreen("Introduccion")}
       />
       <DrawerItem
         label="Recetas"
@@ -51,7 +51,7 @@ const CustomDrawer = (props) => {
           <MaterialCommunityIcons name="chef-hat" size={size} color={color} />
         )}
         labelStyle={[fonts.textButtonRegular,{color: 'black'}]}
-        onPress={() => navigateToScreen("Login")}
+        onPress={() => navigateToScreen("Inicio de Sesión")}
       />
       <DrawerItem
         label="Ayuda"

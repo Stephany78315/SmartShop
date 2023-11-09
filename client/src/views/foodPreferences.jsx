@@ -1,5 +1,4 @@
 import { View, StyleSheet, StatusBar, Dimensions, Text, TouchableOpacity, ScrollView} from "react-native";
-import HeaderBack from "../components/headerBack";
 import { dropShadowS, fonts, colors , borderRadius} from "../css/styles";
 import RadioButton from "../components/radioButton";
 import { useState } from "react";

@@ -1,10 +1,9 @@
 import {Text, StatusBar, View, Image, ActivityIndicator, ScrollView, TouchableOpacity} from 'react-native';
-import HeaderMenu from '../components/headerMenu';
 import { colors , borderRadius, fonts, dropShadowS} from '../css/styles';
 import { gql, useQuery} from '@apollo/client';
 import React, { useState, useEffect } from 'react';
 import { LogBox } from 'react-native';
-
+import HeaderMenu from '../components/headerMenu.jsx'
 
 
 const USERBYID = gql`
