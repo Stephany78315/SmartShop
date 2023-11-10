@@ -1,14 +1,13 @@
 import React from 'react';
-import { StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native';
-import {colors, fonts, dropShadowS} from '../css/styles.js';
-import { useNavigation } from '@react-navigation/native';
+import { StyleSheet, View,TouchableOpacity} from 'react-native';
+import {colors, dropShadowS} from '../css/styles.js';
+import { Feather } from '@expo/vector-icons'; 
 
 const HeaderMenu = ({navigation}) => {
  return (
   <View style={[styles.container, dropShadowS]}>
     <TouchableOpacity onPress={() => navigation.openDrawer()} style={styles.touch}>
-      {/* Flecha de regreso */}
-      <Image source={require('../images/icons/menuIcon.png')} style={styles.icon}/>
+      <Feather name="menu" size={26} color="black" />
     </TouchableOpacity>
   </View>
  )
@@ -17,15 +16,15 @@ const HeaderMenu = ({navigation}) => {
 const styles = StyleSheet.create({
  container: {
   backgroundColor: colors.platine025,
-  padding: 20,
+  paddingLeft: 20,
   width: '100%',
-  height: 60,
+  height: 40,
   alignItems: 'left',
   justifyContent: 'center',
  },
  touch: {
   width: 29, 
-  height: 40, 
+  height: 25, 
   alignItems: 'center'
 },
  icon: {
