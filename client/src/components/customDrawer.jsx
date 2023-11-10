@@ -30,7 +30,7 @@ const CustomDrawer = (props) => {
          </TouchableOpacity>
          <TouchableOpacity
          style={styles.icon}
-         onPress={() => navigateToScreen("Scanner de BC")} // Redirige a la página deseada
+         onPress={() => {props.navigation.navigate('Main',{screen:'Scanner de BC'})}} // Redirige a la página deseada
          >
          <MaterialIcons name="qr-code-scanner" size={24} color="black" />
          <Text style={fonts.textButtonRegular}>Scanner</Text>
